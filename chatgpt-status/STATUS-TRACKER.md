@@ -7,8 +7,9 @@
 | 2026-07-21 | ChatGPT-section audit kit created (prompt + tracker) | Done |
 | 2026-07-21 | First chat audited: OpenClaw Setup & Repository Audit | Done |
 | 2026-07-21 | NTBF repository located (`asifmkp/ntbf-platform`) and cloned read-only | Done |
-| 2026-07-21 | Full engineering audit launched: 6 parallel read-only auditors (architecture/data-flow, DB/auth, Zoho/WhatsApp, AI/OCR, infra/security, code quality/debt) | In Progress |
-| 2026-07-21 | Consolidated audit report (exec summary, architecture, security, debt register, P0–P3 backlog, 30/90/365-day roadmap) | Pending |
+| 2026-07-21 | Full engineering audit executed: 7 parallel read-only auditors (architecture/data-flow, DB/auth, Zoho/WhatsApp, AI/OCR, infra/security, code quality/debt, quantitative census + order-lifecycle trace) | Done |
+| 2026-07-21 | Consolidated audit report delivered: `ntbf-audit/NTBF-PLATFORM-AUDIT.md` — exec summary, 7 system diagrams, quantitative census (197 endpoints, 31 modules, 46 models, 0 cron jobs), security assessment (OWASP-mapped), 20-item debt register, 14-item risk register, P0–P3 backlog, 7/30/90/365-day roadmap | Done |
+| 2026-07-21 | P0 headline: rotate exposed credentials (public repo!), back up /var/data, fail-closed config, close 4 open endpoints, bound COD amounts, activate CI | Awaiting owner review |
 | — | Master project history (consolidating all ChatGPT chat audits) | Waiting on remaining chat reports |
 
 ---
