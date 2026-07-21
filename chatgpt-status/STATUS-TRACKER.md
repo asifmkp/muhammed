@@ -1,4 +1,18 @@
-# ChatGPT Chats — Status Tracker
+# NTBF Project — Status Tracker
+
+## Engineering milestones
+
+| Date (UTC) | Milestone | Status |
+|------------|-----------|--------|
+| 2026-07-21 | ChatGPT-section audit kit created (prompt + tracker) | Done |
+| 2026-07-21 | First chat audited: OpenClaw Setup & Repository Audit | Done |
+| 2026-07-21 | NTBF repository located (`asifmkp/ntbf-platform`) and cloned read-only | Done |
+| 2026-07-21 | Full engineering audit launched: 6 parallel read-only auditors (architecture/data-flow, DB/auth, Zoho/WhatsApp, AI/OCR, infra/security, code quality/debt) | In Progress |
+| 2026-07-21 | Consolidated audit report (exec summary, architecture, security, debt register, P0–P3 backlog, 30/90/365-day roadmap) | Pending |
+| — | Master project history (consolidating all ChatGPT chat audits) | Waiting on remaining chat reports |
+
+---
+
 
 Fill one section per chat using the answers ChatGPT gives you from the
 prompt in `ASK-YOUR-CHATGPT.md`.
