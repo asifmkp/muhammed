@@ -111,6 +111,74 @@ Set these up by simply messaging the agent. Start with two; add more only after 
 
 ---
 
+## Phase 3B — Document Intake & Filing (WhatsApp → Cloud / Zoho)
+
+Goal: send ANY document on WhatsApp (photo or PDF) and have the agent read it,
+classify it, rename it, file it in the right place, and confirm back — no manual
+sorting ever.
+
+### The pipeline
+
+```
+WhatsApp attachment
+   → agent reads / OCRs it
+   → classifies: HR | Finance | Sales | Admin | Government | Personal-ID
+   → renames: YYYY-MM-DD_<category>_<entity>_<doctype>.<ext>
+        e.g. 2026-07-26_Finance_NationalBooks_PurchaseInvoice.pdf
+             2026-07-26_HR_Rahul-K_Passport.pdf
+   → uploads to the right folder / attaches to the right Zoho record
+   → replies with: category, filename, storage link, and any extracted key data
+   → logs one row in a running index sheet (date, type, entity, amount, link)
+```
+
+### Storage map (decide once, then it's automatic)
+
+| Document type | Where it goes |
+|---|---|
+| Purchase/sales invoices, bills, receipts | Google Drive `/Business/Finance/<year>/<month>/` + attach to the matching Zoho Books record (bill/invoice/expense) when one exists |
+| Asset purchases | Drive `/Business/Finance/Assets/` + Zoho Books fixed-asset record |
+| Employee docs (passports, IDs, contracts, insurance) | Zoho People (HR app) against the employee's record if connected; otherwise Drive `/Business/HR/<employee-name>/` (restricted folder) |
+| Government docs (GST, licenses, filings) | Drive `/Business/Government/<year>/` |
+| Sales docs (quotes, POs from customers) | Drive `/Business/Sales/<customer>/` |
+| Admin (rent, utilities, misc contracts) | Drive `/Business/Admin/<year>/` |
+| Unclear / low confidence | Drive `/Business/_Unsorted/` — agent asks you one clarifying question |
+
+### Setup steps
+
+- [ ] Create the Drive folder skeleton above (or ask the agent to create it).
+- [ ] Confirm the gateway has Google Drive access; test: "Create a test file in /Business/_Unsorted and send me the link."
+- [ ] Zoho Books attachment test: "Attach this PDF to bill/invoice X."
+- [ ] Zoho People (HR) is a **separate connector** from Zoho Books — connect it if
+      you want employee docs filed there; until then the HR Drive folder is the fallback.
+- [ ] Create the index sheet: `/Business/Document-Index` (date, category, entity,
+      doctype, amount if any, link).
+- [ ] Save the standing instruction (paste once into the agent chat):
+
+> Standing rule: whenever I send a file or photo of a document on WhatsApp,
+> read it, classify it (HR / Finance / Sales / Admin / Government / Personal-ID),
+> rename it as YYYY-MM-DD_category_entity_doctype, file it per my storage map,
+> attach invoices/bills to the matching Zoho Books record when one exists,
+> add a row to the Document-Index sheet, and reply with what you did and the link.
+> If you're less than ~80% sure of the category, put it in _Unsorted and ask me.
+> Never overwrite or delete an existing file without asking.
+
+### Sensitive-document rules (passports, IDs, insurance)
+
+- These are PII. Keep them in a **restricted** Drive folder (or Zoho People) —
+  never in generally-shared folders, and the agent must **never re-share or
+  forward them** without explicit approval.
+- WhatsApp media is end-to-end encrypted in transit, but the file then lives on
+  your gateway machine and cloud storage — make sure both have disk encryption
+  and your Google account has 2FA.
+- Auto-filing is allowed; **deleting, sharing, or moving out of restricted
+  folders always requires approval** (extends the Phase 4 gates).
+
+**Success check:** send a photo of any invoice on WhatsApp → within a minute you
+get back "Filed: Finance → 2026-07-26_..._PurchaseInvoice.pdf, attached to Zoho
+bill #123, link: ..." and the index sheet has a new row.
+
+---
+
 ## Phase 4 — Approval Gates (Week 1, in parallel)
 
 Turn the Phase 0 decisions into enforced behavior:
