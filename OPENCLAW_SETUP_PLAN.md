@@ -8,9 +8,12 @@ NTBF business platform (repo `asifmkp/ntbf-platform`), which has its own live
 WhatsApp bot, ops assistant scaffold, and document pipeline.
 
 Current state: OpenClaw gateway runs on Asif's Windows Lenovo laptop (also host of
-the existing desktop agent "Glitch" / SYS-07). Android node app paired (1/1 nodes),
-agent `main` running, 3 pre-existing cron jobs (owner unknown — likely Glitch's).
-WhatsApp channel not yet linked.
+the existing desktop agent "Glitch" / SYS-07 — Glitch IS agent `main`). Android
+node app paired (1/1 nodes). Model auth confirmed: Claude Max subscription login
+(claude-cli runtime, primary anthropic/claude-opus-4-7), no API key. WhatsApp
+plugin @openclaw/whatsapp@2026.7.1 installed; QR link + pairing pending.
+The "Companion" desktop app is a single-instance tray app (OpenClaw.Tray.WinUI) —
+its UI lives behind the system-tray icon; double-clicking the launcher is a no-op.
 
 ---
 
@@ -26,8 +29,11 @@ WhatsApp channel not yet linked.
 3. **Business WhatsApp number is off-limits.** The business runs a production
    WhatsApp bot (Supabase edge function + 360dialog) on the business number for
    customers and staff. This assistant links ONLY to Asif's personal number.
-4. **Don't touch the 3 existing cron jobs** on the gateway — they may be Glitch's.
-   Ask Glitch (via Asif) what they do before adding new ones.
+4. **The 3 existing cron jobs are Glitch's** (confirmed 2026-07-27, all owned by
+   `agent:main`): `ntbf-health-watchdog` (5-min read-only NTBF health poll),
+   `ashi-checkin-30m` (task sweep, Dubai waking hours), `cockpit-daily-sweep`
+   (08:00 Dubai). Rule: **never create or modify jobs under `agent:main`** —
+   personal-assistant automations get their own agent identity.
 5. **Briefing overlap:** the platform has "Muhammed ops Phase A" (owner-gated
    daily-briefing generator, currently inert). Any business-data briefing from
    this assistant duplicates it — that choice belongs to Asif explicitly.
@@ -133,8 +139,9 @@ Start with ONE (personal scope only):
 2. *(Optional, later)* Personal reminders/watchers (renewals, personal payments,
    a website/price watch — nothing business-operational).
 
-**Before creating any cron job:** list existing jobs and confirm the 3 unknowns
-with Glitch via Asif. Add, never overwrite.
+**Before creating any cron job:** the 3 existing jobs are Glitch's (`agent:main`)
+— identified, do not touch. Personal-assistant jobs must run under a separate
+agent identity (name to be agreed with Asif/Glitch), never under `agent:main`.
 
 **Success check:** briefing arrives 3 days in a row; Glitch's jobs untouched.
 
