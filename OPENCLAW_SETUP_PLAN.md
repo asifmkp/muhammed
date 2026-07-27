@@ -72,9 +72,13 @@ openclaw plugins install clawhub:@openclaw/whatsapp
 openclaw channels login --channel whatsapp
 ```
 
-QR appears in terminal → on Asif's phone: **WhatsApp → Settings → Linked
-Devices → Link a Device** → scan. Personal number self-chat mode is the
-starting point. **Never the business number** (production bot lives there).
+QR appears in terminal → on the phone holding the assistant's WhatsApp account:
+**WhatsApp → Settings → Linked Devices → Link a Device** → scan.
+
+**DECIDED (2026-07-27):** the assistant uses a **dedicated work number** — not
+the 360dialog business number (production bot lives there) and not Asif's
+personal number. The bot appears as a normal contact Asif messages from his
+own phone. Number itself is kept out of this repo.
 
 Lock down `openclaw.json` (E.164 format):
 
